@@ -1,0 +1,41 @@
+&lt;svg width="600" height="500" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;!-- Fondo con gradiente --&gt;
+  &lt;rect width="600" height="500" fill="url(#paint0_linear)"/&gt;
+  
+  &lt;!-- Edificio de oficinas --&gt;
+  &lt;rect x="100" y="100" width="400" height="350" fill="#ffffff" stroke="#2c3e50" stroke-width="4"/&gt;
+  &lt;rect x="150" y="150" width="80" height="100" fill="#f8f9fa"/&gt;
+  &lt;rect x="260" y="150" width="80" height="100" fill="#f8f9fa"/&gt;
+  &lt;rect x="370" y="150" width="80" height="100" fill="#f8f9fa"/&gt;
+  &lt;rect x="150" y="280" width="80" height="100" fill="#f8f9fa"/&gt;
+  &lt;rect x="260" y="280" width="80" height="100" fill="#f8f9fa"/&gt;
+  &lt;rect x="370" y="280" width="80" height="100" fill="#f8f9fa"/&gt;
+  
+  &lt;!-- Elementos decorativos --&gt;
+  &lt;circle cx="300" cy="80" r="40" fill="#3498db" fill-opacity="0.2"/&gt;
+  &lt;circle cx="500" cy="200" r="30" fill="#2ecc71" fill-opacity="0.2"/&gt;
+  &lt;circle cx="100" cy="350" r="35" fill="#e74c3c" fill-opacity="0.2"/&gt;
+  
+  &lt;!-- Iconos de tecnología --&gt;
+  &lt;rect x="170" y="180" width="40" height="40" rx="5" fill="#2c3e50" fill-opacity="0.1"/&gt;
+  &lt;rect x="280" y="180" width="40" height="40" rx="5" fill="#2c3e50" fill-opacity="0.1"/&gt;
+  &lt;rect x="390" y="180" width="40" height="40" rx="5" fill="#2c3e50" fill-opacity="0.1"/&gt;
+  
+  &lt;!-- Personas trabajando (siluetas) --&gt;
+  &lt;circle cx="190" cy="310" r="15" fill="#2c3e50"/&gt;
+  &lt;rect x="175" y="325" width="30" height="35" rx="5" fill="#2c3e50"/&gt;
+  
+  &lt;circle cx="300" cy="310" r="15" fill="#2c3e50"/&gt;
+  &lt;rect x="285" y="325" width="30" height="35" rx="5" fill="#2c3e50"/&gt;
+  
+  &lt;circle cx="410" cy="310" r="15" fill="#2c3e50"/&gt;
+  &lt;rect x="395" y="325" width="30" height="35" rx="5" fill="#2c3e50"/&gt;
+  
+  &lt;!-- Definición del gradiente --&gt;
+  &lt;defs&gt;
+    &lt;linearGradient id="paint0_linear" x1="0" y1="0" x2="600" y2="500" gradientUnits="userSpaceOnUse"&gt;
+      &lt;stop offset="0" stop-color="#f8f9fa"/&gt;
+      &lt;stop offset="1" stop-color="#e9ecef"/&gt;
+    &lt;/linearGradient&gt;
+  &lt;/defs&gt;
+&lt;/svg&gt; 
