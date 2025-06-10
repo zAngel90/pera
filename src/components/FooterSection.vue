@@ -21,25 +21,61 @@
         <div class="footer-links">
           <h3>Enlaces Rápidos</h3>
           <ul>
-            <li><a href="#nosotros">Nosotros</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#contact">Contacto</a></li>
+            <li><a href="#" @click="scrollToSection('nosotros')">Nosotros</a></li>
+            <li><a href="#" @click="scrollToSection('servicios')">Servicios</a></li>
+            <li><a href="#" @click="scrollToSection('contacto')">Contacto</a></li>
           </ul>
         </div>
 
         <div class="footer-services">
           <h3>Servicios</h3>
           <ul>
-            <li><a href="#">Inversión Estratégica</a></li>
-            <li><a href="#">Capital de Trabajo</a></li>
-            <li><a href="#">Expansión Empresarial</a></li>
-            <li><a href="#">Asesoría Financiera</a></li>
+            <li><a href="#" @click="navigateToService('/servicios/financiamiento')">Financiamiento y Gestión Bancaria</a></li>
+            <li><a href="#" @click="navigateToService('/servicios/gestion-activos')">Gestión de Activos e Inversión</a></li>
+            <li><a href="#" @click="navigateToService('/servicios/optimizacion')">Optimización de Estructuras</a></li>
+            <li><a href="#" @click="navigateToService('/servicios/consultoria')">Consultoría Legal y Contable</a></li>
           </ul>
         </div>
       </div>
     </div>
   </footer>
 </template>
+
+<script setup>
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter();
+const route = useRoute();
+
+const scrollToSection = async (sectionId) => {
+  if (route.path !== '/') {
+    await router.push('/');
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  
+  const section = document.getElementById(sectionId);
+  if (section) {
+    const navbarHeight = 100; // Altura aproximada del navbar
+    const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - navbarHeight;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+};
+
+const navigateToService = async (path) => {
+  if (route.path === path) {
+    // Si ya estamos en la página del servicio, scroll al top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    // Si no, navegar a la página del servicio
+    await router.push(path);
+  }
+};
+</script>
 
 <style scoped>
 .footer {

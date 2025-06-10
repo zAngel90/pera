@@ -47,9 +47,17 @@ const scrollToContact = async (e) => {
   e.preventDefault();
   await router.push('/');
   await new Promise(resolve => setTimeout(resolve, 100));
+  
   const contactSection = document.getElementById('contacto');
   if (contactSection) {
-    contactSection.scrollIntoView({ behavior: 'smooth' });
+    const navbarHeight = 100; // Altura aproximada del navbar
+    const elementPosition = contactSection.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - navbarHeight;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
   }
 };
 </script>
