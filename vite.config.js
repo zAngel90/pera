@@ -25,7 +25,18 @@ export default defineConfig({
         manualChunks: {
           'vendor': ['vue', 'vue-router'],
           'aos': ['aos']
-        }
+        },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name.endsWith('.js')) {
+            return 'assets/js/[name]-[hash][extname]'
+          }
+          if (assetInfo.name.endsWith('.css')) {
+            return 'assets/css/[name]-[hash][extname]'
+          }
+          return 'assets/[name]-[hash][extname]'
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js'
       }
     }
   }

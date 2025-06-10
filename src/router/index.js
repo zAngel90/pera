@@ -6,7 +6,7 @@ import OptimizacionView from '../views/OptimizacionView.vue'
 import ConsultoriaView from '../views/ConsultoriaView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory('/'),
   routes: [
     {
       path: '/',
