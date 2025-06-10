@@ -21,9 +21,9 @@
         <div class="footer-links">
           <h3>Enlaces Rápidos</h3>
           <ul>
-            <li><a href="#" @click="scrollToSection('nosotros')">Nosotros</a></li>
-            <li><a href="#" @click="scrollToSection('servicios')">Servicios</a></li>
-            <li><a href="#" @click="scrollToSection('contacto')">Contacto</a></li>
+            <li><a href="#" @click="handleQuickLink('nosotros', $event)">Nosotros</a></li>
+            <li><a href="#" @click="handleQuickLink('servicios', $event)">Servicios</a></li>
+            <li><a href="#" @click="handleQuickLink('contacto', $event)">Contacto</a></li>
           </ul>
         </div>
 
@@ -73,6 +73,40 @@ const navigateToService = async (path) => {
   } else {
     // Si no, navegar a la página del servicio
     await router.push(path);
+  }
+};
+
+// Función para manejar los enlaces rápidos
+const handleQuickLink = async (sectionId, e) => {
+  e.preventDefault();
+  if (route.path === '/') {
+    // Si estamos en el home, solo hacemos scroll
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const navbarHeight = 100;
+      const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navbarHeight;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  } else {
+    // Si no estamos en el home, navegamos y luego hacemos scroll
+    await router.push('/');
+    await new Promise(resolve => setTimeout(resolve, 100));
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const navbarHeight = 100;
+      const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navbarHeight;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   }
 };
 </script>
