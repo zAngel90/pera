@@ -15,17 +15,6 @@
               <font-awesome-icon icon="envelope" class="icon" />
               <p>contacto@conectacapitalpartners.com</p>
             </div>
-            <div class="social-links" data-aos="fade-up" data-aos-delay="200">
-              <a href="#" class="social-link">
-                <font-awesome-icon :icon="['fab', 'linkedin-in']" />
-              </a>
-              <a href="#" class="social-link">
-                <font-awesome-icon :icon="['fab', 'twitter']" />
-              </a>
-              <a href="#" class="social-link">
-                <font-awesome-icon :icon="['fab', 'facebook-f']" />
-              </a>
-            </div>
           </div>
 
           <form class="contact-form" data-aos="fade-left" data-aos-duration="1000">
@@ -158,32 +147,6 @@ const handleSubmit = () => {
   word-break: break-word;
 }
 
-.social-links {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-
-.social-link {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.social-link:hover {
-  background: white;
-  color: #1a3b5d;
-  transform: translateY(-3px);
-}
-
 .contact-form {
   background: white;
   padding: 3rem;
@@ -296,15 +259,6 @@ const handleSubmit = () => {
 
   .info-item p {
     font-size: 1rem;
-  }
-
-  .social-links {
-    margin-top: 1.5rem;
-  }
-
-  .social-link {
-    width: 35px;
-    height: 35px;
   }
 
   .form-group {

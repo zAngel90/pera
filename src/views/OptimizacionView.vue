@@ -31,12 +31,28 @@
 
         <div class="cta-section">
           <h2>¿Necesitas optimizar tu estructura financiera?</h2>
-          <router-link to="/contacto" class="cta-button">Contáctanos</router-link>
+          <a href="#" class="cta-button" @click="scrollToContact">Contáctanos</a>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const scrollToContact = async (e) => {
+  e.preventDefault();
+  await router.push('/');
+  await new Promise(resolve => setTimeout(resolve, 100));
+  const contactSection = document.getElementById('contacto');
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+</script>
 
 <style scoped>
 .service-detail {
