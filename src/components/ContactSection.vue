@@ -101,8 +101,8 @@ const handleSubmit = () => {
 }
 
 .contact {
-  padding: 100px 0;
-  background-color: #f8f9fa;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -131,6 +131,7 @@ const handleSubmit = () => {
   padding: 3rem;
   border-radius: 10px;
   color: white;
+  height: fit-content;
 }
 
 .contact-info h3 {
@@ -154,12 +155,14 @@ const handleSubmit = () => {
 .info-item p {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.9);
+  word-break: break-word;
 }
 
 .social-links {
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
 .social-link {
@@ -239,25 +242,108 @@ const handleSubmit = () => {
   transform: translateY(-2px);
 }
 
-@media (max-width: 968px) {
+/* Tablet */
+@media (max-width: 1024px) {
   .contact-content {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+
+  .contact-info,
+  .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
+/* Mobile */
 @media (max-width: 768px) {
-  .contact {
-    padding: 60px 0;
+  .contact-wrapper {
+    padding: 4rem 0;
+  }
+
+  .container {
+    padding: 0 1.5rem;
   }
 
   .section-title {
     font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-content {
+    gap: 2rem;
   }
 
   .contact-info,
   .contact-form {
     padding: 2rem;
+  }
+
+  .contact-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-item {
+    margin-bottom: 1rem;
+  }
+
+  .info-item .icon {
+    font-size: 1.2rem;
+  }
+
+  .info-item p {
+    font-size: 1rem;
+  }
+
+  .social-links {
+    margin-top: 1.5rem;
+  }
+
+  .social-link {
+    width: 35px;
+    height: 35px;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .contact-wrapper {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .contact-info,
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
   }
 }
 </style> 
