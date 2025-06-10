@@ -16,7 +16,7 @@
         <router-link to="/" class="nav-link" @click="closeMenu">Inicio</router-link>
         <div class="dropdown" @click="toggleDropdown">
           <button class="nav-link dropdown-toggle">
-            Servicios
+            <span>Servicios</span>
             <i class="fas fa-chevron-down"></i>
           </button>
           <div class="dropdown-content" :class="{ 'show-dropdown': isDropdownOpen }">
@@ -26,7 +26,7 @@
             <router-link to="/servicios/consultoria" class="dropdown-item" @click="closeMenu">Consultoría Legal, Contable e Impositiva</router-link>
           </div>
         </div>
-        <router-link to="/nosotros" class="nav-link" @click="closeMenu">Nosotros</router-link>
+        <a href="#nosotros" class="nav-link" @click="scrollToNosotros">Nosotros</a>
         <a href="#contacto" class="nav-link" @click="scrollToContact">Contacto</a>
       </div>
     </div>
@@ -35,20 +35,34 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
+const router = useRouter();
+const route = useRoute();
 const isScrolled = ref(false);
 const showNavLogo = ref(false);
 const isMenuOpen = ref(false);
 const isDropdownOpen = ref(false);
 
-const scrollToContact = (e) => {
+const scrollToSection = async (sectionId, e) => {
   e.preventDefault();
   closeMenu();
-  const contactSection = document.getElementById('contacto');
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: 'smooth' });
+  
+  // Si no estamos en la página principal, primero navegamos a ella
+  if (route.path !== '/') {
+    await router.push('/');
+    // Esperamos un momento para que la página se cargue
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
   }
 };
+
+const scrollToNosotros = (e) => scrollToSection('nosotros', e);
+const scrollToContact = (e) => scrollToSection('contacto', e);
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
@@ -56,6 +70,14 @@ onMounted(() => {
   setTimeout(() => {
     showNavLogo.value = true;
   }, 3800);
+
+  // Agregar evento para cerrar el menú al hacer clic fuera
+  document.addEventListener('click', (event) => {
+    const navbar = document.querySelector('.navbar');
+    if (navbar && !navbar.contains(event.target)) {
+      closeMenu();
+    }
+  });
 });
 
 const handleScroll = () => {
@@ -69,7 +91,8 @@ const toggleMenu = () => {
   }
 };
 
-const toggleDropdown = () => {
+const toggleDropdown = (event) => {
+  event.stopPropagation(); // Evita que el evento se propague
   if (window.innerWidth <= 768) {
     isDropdownOpen.value = !isDropdownOpen.value;
   }
@@ -185,6 +208,10 @@ const closeMenu = () => {
   display: block;
 }
 
+.show-dropdown {
+  display: block !important;
+}
+
 .dropdown-item {
   color: #1a3b5d;
   text-decoration: none;
@@ -255,25 +282,24 @@ const closeMenu = () => {
     position: fixed;
     top: 0;
     right: -100%;
-    height: 100vh;
     width: 80%;
     max-width: 400px;
+    height: 100vh;
     background: white;
     flex-direction: column;
-    gap: 0;
-    padding: 100px 2rem 2rem;
+    gap: 1rem;
+    padding: 6rem 2rem;
     transition: right 0.3s ease;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
   }
 
   .nav-links.show {
     right: 0;
   }
 
-  .nav-link, .dropdown-toggle {
+  .nav-link {
     color: #1a3b5d !important;
     text-shadow: none;
-    padding: 1rem 0;
     font-size: 1.2rem;
     width: 100%;
     text-align: left;
@@ -283,23 +309,39 @@ const closeMenu = () => {
     width: 100%;
   }
 
+  .dropdown-toggle {
+    width: 100%;
+    color: #1a3b5d;
+    justify-content: flex-start;
+    padding: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .fa-chevron-down {
+    margin-left: auto;
+  }
+
   .dropdown-content {
     position: static;
     display: none;
+    width: 100%;
     box-shadow: none;
-    padding-left: 1rem;
-  }
-
-  .dropdown-content.show-dropdown {
-    display: block;
-  }
-
-  .dropdown-item {
-    padding: 0.8rem 0;
+    background: #f8f9fa;
+    margin-top: 0.5rem;
   }
 
   .dropdown:hover .dropdown-content {
     display: none;
+  }
+
+  .show-dropdown {
+    display: block !important;
+  }
+
+  .dropdown-item {
+    padding: 1rem 1.5rem;
   }
 }
 
