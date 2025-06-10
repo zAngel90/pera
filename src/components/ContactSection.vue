@@ -1,23 +1,19 @@
 <template>
   <div class="contact-wrapper" id="contacto">
     <div class="contact-pattern"></div>
-    <section class="contact" id="contact">
+    <section class="contact">
       <div class="container">
         <h2 class="section-title" data-aos="fade-up">Contáctanos</h2>
         <div class="contact-content">
           <div class="contact-info" data-aos="fade-right" data-aos-duration="1000">
             <h3>Información de Contacto</h3>
             <div class="info-item">
-              <font-awesome-icon icon="map-marker-alt" class="icon" />
-              <p>Av. Principal 123, Ciudad Empresarial</p>
-            </div>
-            <div class="info-item">
               <font-awesome-icon icon="phone" class="icon" />
-              <p>+1 234 567 890</p>
+              <p>+54 221 6172108</p>
             </div>
             <div class="info-item">
               <font-awesome-icon icon="envelope" class="icon" />
-              <p>contacto@bridgecapital.com</p>
+              <p>contacto@conectacapitalpartners.com</p>
             </div>
             <div class="social-links" data-aos="fade-up" data-aos-delay="200">
               <a href="#" class="social-link">

@@ -27,7 +27,7 @@
           </div>
         </div>
         <router-link to="/nosotros" class="nav-link" @click="closeMenu">Nosotros</router-link>
-        <router-link to="/contacto" class="nav-link" @click="closeMenu">Contacto</router-link>
+        <a href="#contacto" class="nav-link" @click="scrollToContact">Contacto</a>
       </div>
     </div>
   </nav>
@@ -40,6 +40,15 @@ const isScrolled = ref(false);
 const showNavLogo = ref(false);
 const isMenuOpen = ref(false);
 const isDropdownOpen = ref(false);
+
+const scrollToContact = (e) => {
+  e.preventDefault();
+  closeMenu();
+  const contactSection = document.getElementById('contacto');
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
@@ -112,14 +121,14 @@ const closeMenu = () => {
 }
 
 .nav-logo {
-  height: 150px;
+  height: 100px;
   width: auto;
   filter: brightness(1);
   transition: all 0.3s ease;
 }
 
 .navbar-scrolled .nav-logo {
-  height: 120px;
+  height: 80px;
   filter: brightness(0);
 }
 
