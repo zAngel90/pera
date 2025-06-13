@@ -2,7 +2,7 @@
   <section class="hero">
     <div class="hero-content">
       <div class="logo-animation" :class="{ 'animate': startAnimation, 'fade-in': showInitialLogo }">
-        <img src="https://i.postimg.cc/Bnr0PgpR/image-removebg-preview-2.png" alt="Bridge Capital Logo" class="hero-logo">
+        <img src="/LOGO2.png" alt="Conecta Capital Logo" class="hero-logo">
       </div>
       <h1 class="slogan" :class="{ 'show': showSlogan }">IMPULSAMOS NEGOCIOS<br>CON CAPITAL INTELIGENTE</h1>
     </div>
@@ -97,29 +97,28 @@ onUnmounted(() => {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 2.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transform: translate(-50%, -50%) scale(1);
   opacity: 0;
   will-change: transform, opacity;
   z-index: 10;
+  transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo-animation.fade-in {
   opacity: 1;
-  transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .logo-animation.animate {
-  left: 0;
-  transform: translate(50px, -50vh) scale(0.45);
+  transform: translate(-50%, -50%) scale(0.6);
   opacity: 0;
-  transition: all 2.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-logo {
-  width: 650px;
+  width: 600px;
   height: auto;
-  filter: none;
+  filter: brightness(1.1);
   transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: center center;
 }
@@ -131,7 +130,7 @@ onUnmounted(() => {
   line-height: 1.4;
   margin: 0;
   letter-spacing: 2px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   opacity: 0;
   transform: translateY(20px);
   transition: all 1.8s ease;
@@ -158,8 +157,7 @@ onUnmounted(() => {
   }
 
   .logo-animation.animate {
-    transform: translate(20px, -50vh) scale(0.4);
-    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
   }
 
   .slogan {
@@ -175,8 +173,7 @@ onUnmounted(() => {
   }
 
   .logo-animation.animate {
-    transform: translate(15px, -50vh) scale(0.35);
-    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
   }
 
   .slogan {

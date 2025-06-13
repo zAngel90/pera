@@ -17,29 +17,65 @@
             </div>
           </div>
 
-          <form class="contact-form" data-aos="fade-left" data-aos-duration="1000">
+          <form class="contact-form" @submit="handleSubmit" data-aos="fade-left" data-aos-duration="1000">
             <div class="form-group" data-aos="fade-up" data-aos-delay="100">
               <label for="name">Nombre</label>
-              <input type="text" id="name" name="name" required>
+              <input 
+                type="text" 
+                id="name" 
+                v-model="formData.name"
+                required
+                :disabled="loading"
+              >
             </div>
             
             <div class="form-group" data-aos="fade-up" data-aos-delay="200">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" required>
+              <input 
+                type="email" 
+                id="email" 
+                v-model="formData.email"
+                required
+                :disabled="loading"
+              >
             </div>
             
             <div class="form-group" data-aos="fade-up" data-aos-delay="300">
               <label for="phone">Teléfono</label>
-              <input type="tel" id="phone" name="phone">
+              <input 
+                type="tel" 
+                id="phone" 
+                v-model="formData.phone"
+                :disabled="loading"
+              >
             </div>
             
             <div class="form-group" data-aos="fade-up" data-aos-delay="400">
               <label for="message">Mensaje</label>
-              <textarea id="message" name="message" required></textarea>
+              <textarea 
+                id="message" 
+                v-model="formData.message"
+                required
+                :disabled="loading"
+              ></textarea>
+            </div>
+
+            <div v-if="error" class="error-message" data-aos="fade-up">
+              {{ error }}
+            </div>
+
+            <div v-if="success" class="success-message" data-aos="fade-up">
+              ¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.
             </div>
             
-            <button type="submit" class="submit-button" data-aos="fade-up" data-aos-delay="500">
-              Enviar Mensaje
+            <button 
+              type="submit" 
+              class="submit-button" 
+              :disabled="loading"
+              data-aos="fade-up" 
+              data-aos-delay="500"
+            >
+              {{ loading ? 'Enviando...' : 'Enviar Mensaje' }}
             </button>
           </form>
         </div>
@@ -54,13 +90,48 @@ import { ref } from 'vue'
 const formData = ref({
   name: '',
   email: '',
-  subject: '',
+  phone: '',
   message: ''
 })
 
-const handleSubmit = () => {
-  // Aquí iría la lógica para enviar el formulario
-  console.log('Formulario enviado:', formData.value)
+const loading = ref(false)
+const error = ref(null)
+const success = ref(false)
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  loading.value = true
+  error.value = null
+  success.value = false
+
+  try {
+    const response = await fetch('http://localhost:3000/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData.value)
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Error al enviar el mensaje')
+    }
+
+    success.value = true
+    formData.value = {
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
+    }
+  } catch (err) {
+    console.error('Error detallado:', err)
+    error.value = err.message || 'Error al conectar con el servidor. Por favor, intente nuevamente.'
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -203,6 +274,30 @@ const handleSubmit = () => {
 .submit-button:hover {
   background-color: #152f4a;
   transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 /* Tablet */

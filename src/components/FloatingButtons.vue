@@ -1,6 +1,6 @@
 <template>
   <div class="floating-buttons">
-    <a href="https://wa.me/TUNUMERO" target="_blank" class="whatsapp-button" title="Contactar por WhatsApp">
+    <a href="https://wa.me/542216172108" target="_blank" class="whatsapp-button" title="Contactar por WhatsApp">
       <font-awesome-icon :icon="['fab', 'whatsapp']" />
     </a>
 
