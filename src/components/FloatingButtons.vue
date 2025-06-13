@@ -18,22 +18,45 @@
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label for="name">Nombre y Apellido</label>
-            <input type="text" id="name" v-model="formData.name" required>
+            <input 
+              type="text" 
+              id="name" 
+              v-model="formData.name" 
+              required
+              :disabled="loading"
+            >
           </div>
 
           <div class="form-group">
             <label for="phone">Teléfono</label>
-            <input type="tel" id="phone" v-model="formData.phone" required>
+            <input 
+              type="tel" 
+              id="phone" 
+              v-model="formData.phone" 
+              required
+              :disabled="loading"
+            >
           </div>
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" v-model="formData.email" required>
+            <input 
+              type="email" 
+              id="email" 
+              v-model="formData.email" 
+              required
+              :disabled="loading"
+            >
           </div>
 
           <div class="form-group">
             <label for="reason">Motivo de contacto</label>
-            <select id="reason" v-model="formData.reason" required>
+            <select 
+              id="reason" 
+              v-model="formData.reason" 
+              required
+              :disabled="loading"
+            >
               <option value="">Seleccione un motivo</option>
               <option value="financiamiento">Financiamiento</option>
               <option value="inversiones">Inversiones</option>
@@ -42,7 +65,21 @@
             </select>
           </div>
 
-          <button type="submit" class="submit-button">Enviar</button>
+          <div v-if="error" class="error-message">
+            {{ error }}
+          </div>
+
+          <div v-if="success" class="success-message">
+            ¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.
+          </div>
+
+          <button 
+            type="submit" 
+            class="submit-button"
+            :disabled="loading"
+          >
+            {{ loading ? 'Enviando...' : 'Enviar' }}
+          </button>
         </form>
       </div>
     </div>
@@ -59,16 +96,52 @@ const formData = ref({
   email: '',
   reason: ''
 })
+const loading = ref(false)
+const error = ref(null)
+const success = ref(false)
 
-const handleSubmit = () => {
-  // Aquí iría la lógica para enviar el formulario
-  console.log('Formulario enviado:', formData.value)
-  showContactForm.value = false
-  formData.value = {
-    name: '',
-    phone: '',
-    email: '',
-    reason: ''
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  loading.value = true
+  error.value = null
+  success.value = false
+
+  try {
+    const response = await fetch('https://a788-2a02-4780-14-d842-00-1.ngrok-free.app/api/quick-contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
+      },
+      body: JSON.stringify(formData.value)
+    })
+
+    const data = await response.json().catch(() => ({
+      error: 'Error al procesar la respuesta del servidor'
+    }))
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Error al enviar el mensaje')
+    }
+
+    success.value = true
+    formData.value = {
+      name: '',
+      phone: '',
+      email: '',
+      reason: ''
+    }
+
+    // Cerrar el modal después de 2 segundos
+    setTimeout(() => {
+      showContactForm.value = false
+      success.value = false
+    }, 2000)
+  } catch (err) {
+    console.error('Error detallado:', err)
+    error.value = err.message || 'Error al conectar con el servidor. Por favor, intente nuevamente.'
+  } finally {
+    loading.value = false
   }
 }
 </script>
@@ -218,5 +291,23 @@ const handleSubmit = () => {
     margin: 1rem;
     padding: 1.5rem;
   }
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 </style> 
