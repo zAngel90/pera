@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: 'contacto@conectacapitalpartners.com',
-    pass: '123456789', // Aquí pon la contraseña de aplicación correcta
+    pass: 'uDesYAjc4nGz',
   },
 });
 

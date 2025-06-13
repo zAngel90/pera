@@ -105,10 +105,11 @@ const handleSubmit = async (e) => {
   success.value = false
 
   try {
-    const response = await fetch('http://localhost:3000/api/contact', {
+    const response = await fetch('https://a788-2a02-4780-14-d842-00-1.ngrok-free.app/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
       },
       body: JSON.stringify(formData.value)
     })
